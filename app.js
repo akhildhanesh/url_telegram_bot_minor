@@ -1,5 +1,5 @@
 'use strict'
-const db = require('./mongo')
+const { getUrl } = require('./mongo')
 const express = require('express')
 const app = express()
 
@@ -19,7 +19,7 @@ const DOMAIN = 'http://localhost:3000/'
 app.get('/:url', async (req, res) => {
     let data = await client.get(req.params.url)
     if (data != null) return res.redirect(data)
-    db.getUrl(req.params.url)
+    getUrl(req.params.url)
         .then(result => {
             if (result.length === 0) return res.send('Something\'s wrong here')
             res.redirect(result[0]['url'])
