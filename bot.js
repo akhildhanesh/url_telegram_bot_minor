@@ -15,7 +15,7 @@ bot.start(ctx => ctx.reply('send a url to shorten'))
 bot.on('text', (ctx) => {
     const msg = ctx.update.message.text.toLowerCase()
     if (!validateUrl(msg)) return ctx.reply('please send a valid url')
-    addUrl(msg)
+    addUrl(encodeURIComponent(msg))
         .then(data => ctx.reply(`${DOMAIN}/${data}`))
         .catch(err => console.error(err))
 })
